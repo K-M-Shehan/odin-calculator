@@ -1,6 +1,69 @@
-let operand1 = parseInt(prompt("Enter a number"));
-let operator = prompt("Enter an operator");
-let operand2 = parseInt(prompt("Enter a number"));
+const num0 = document.querySelector("#num0");
+const num1 = document.querySelector("#num1");
+const num2 = document.querySelector("#num2");
+const num3 = document.querySelector("#num3");
+const num4 = document.querySelector("#num4");
+const num5 = document.querySelector("#num5");
+const num6 = document.querySelector("#num6");
+const num7 = document.querySelector("#num7");
+const num8 = document.querySelector("#num8");
+const num9 = document.querySelector("#num9");
+
+const plus = document.querySelector("#add");
+const minus = document.querySelector("#subtract");
+const saltire = document.querySelector("#multiply");
+const obelus = document.querySelector("#divide");
+const equals = document.querySelector("#evaluate");
+
+const displayScreen = document.querySelector("#display");
+
+function incrementToDisplay(character) {
+  let prev = displayScreen.textContent;
+  let next = prev + character;  // would add the new character to the end of the string (since this is string concat)
+
+  displayScreen.textContent = next;
+}
+
+// event listeners
+num0.addEventListener("click", () => {
+  incrementToDisplay("0");
+})
+
+num1.addEventListener("click", () => {
+  incrementToDisplay("1");
+})
+
+num2.addEventListener("click", () => {
+  incrementToDisplay("2");
+})
+
+num3.addEventListener("click", () => {
+  incrementToDisplay("3");
+})
+
+num4.addEventListener("click", () => {
+  incrementToDisplay("4");
+})
+
+num5.addEventListener("click", () => {
+  incrementToDisplay("5");
+})
+
+num6.addEventListener("click", () => {
+  incrementToDisplay("6");
+})
+
+num7.addEventListener("click", () => {
+  incrementToDisplay("7");
+})
+
+num8.addEventListener("click", () => {
+  incrementToDisplay("8");
+})
+
+num9.addEventListener("click", () => {
+  incrementToDisplay("9");
+})
 
 function add(operand1, operand2) {
   return operand1 + operand2;
@@ -42,5 +105,3 @@ function operate(operand1, operand2, operator) {
     break;
   }
 }
-
-operate(operand1, operand2, operator);
