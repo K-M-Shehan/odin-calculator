@@ -17,6 +17,11 @@ const equals = document.querySelector("#evaluate");
 
 const displayScreen = document.querySelector("#display");
 
+let operand;
+let operator;
+let operand1;
+let operand2;
+
 function incrementToDisplay(character) {
   let prev = displayScreen.textContent;
   let next = prev + character;  // would add the new character to the end of the string (since this is string concat)
@@ -63,6 +68,37 @@ num8.addEventListener("click", () => {
 
 num9.addEventListener("click", () => {
   incrementToDisplay("9");
+})
+
+plus.addEventListener("click", () => {
+  operand = parseInt(displayScreen.textContent);
+  operator = "+";
+  displayScreen.textContent = "";
+})
+
+minus.addEventListener("click", () => {
+  operand = parseInt(displayScreen.textContent);
+  operator = "-";
+  displayScreen.textContent = "";
+})
+
+saltire.addEventListener("click", () => {
+  operand = parseInt(displayScreen.textContent);
+  operator = "*";
+  displayScreen.textContent = "";
+})
+
+obelus.addEventListener("click", () => {
+  operand = parseInt(displayScreen.textContent);
+  operator = "/";
+  displayScreen.textContent = "";
+})
+
+equals.addEventListener("click", () => {
+  operand1 = operand;
+  operand2 = parseInt(displayScreen.textContent);
+  displayScreen.textContent = "";
+  operate(operand1, operand2, operator)
 })
 
 function add(operand1, operand2) {
