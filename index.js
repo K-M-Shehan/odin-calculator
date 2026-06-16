@@ -141,6 +141,8 @@ equals.addEventListener("click", () => {
   }
   displayScreen.textContent = "";
   secondScreen.textContent = operate(operand1, operand2, operator);
+  operand1 = null;
+  operand2 = null;
 })
 
 clear.addEventListener("click", () => {
