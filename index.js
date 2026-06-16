@@ -15,6 +15,8 @@ const saltire = document.querySelector("#multiply");
 const obelus = document.querySelector("#divide");
 const equals = document.querySelector("#evaluate");
 
+const clear = document.querySelector("#clear");
+
 const displayScreen = document.querySelector("#display");
 
 let operand;
@@ -99,6 +101,10 @@ equals.addEventListener("click", () => {
   operand2 = parseInt(displayScreen.textContent);
   displayScreen.textContent = "";
   operate(operand1, operand2, operator)
+})
+
+clear.addEventListener("click", () => {
+  displayScreen.textContent = ""
 })
 
 function add(operand1, operand2) {
