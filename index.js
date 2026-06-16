@@ -109,7 +109,19 @@ saltire.addEventListener("click", () => {
 })
 
 obelus.addEventListener("click", () => {
-  checkChaining();
+  if(operand1 == null && operand2 == null) {
+    operand1 = parseInt(displayScreen.textContent);
+  }
+  else if (operand1 != null && operand2 == null){
+    operand2 = parseInt(displayScreen.textContent);
+    if(operand2 == 0) {
+      operand2 = null;
+      secondScreen.textContent = "You have accidentally found the One Piece!";
+      return
+    }
+    operand1 = operate(operand1, operand2, operator)
+    operand2 = null;
+  }
   secondScreen.textContent = operand1;
   operator = "/";
   secondScreen.textContent = secondScreen.textContent + " " + operator;
@@ -118,6 +130,11 @@ obelus.addEventListener("click", () => {
 
 equals.addEventListener("click", () => {
   operand2 = parseInt(displayScreen.textContent);
+  if(operand2 == 0 && operator == "/") {
+    operand2 = null;
+    secondScreen.textContent = "You have accidentally found the One Piece!";
+    return
+  }
   displayScreen.textContent = "";
   secondScreen.textContent = operate(operand1, operand2, operator);
 })
