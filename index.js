@@ -18,6 +18,7 @@ const equals = document.querySelector("#evaluate");
 const clear = document.querySelector("#clear");
 
 const displayScreen = document.querySelector("#display");
+const secondScreen = document.querySelector("#operation-display");
 
 let operand;
 let operator;
@@ -72,39 +73,60 @@ num9.addEventListener("click", () => {
   incrementToDisplay("9");
 })
 
+function checkChaining() {
+  if(operand1 == null && operand2 == null) {
+    operand1 = parseInt(displayScreen.textContent);
+  }
+  else if (operand1 != null && operand2 == null){
+    operand2 = parseInt(displayScreen.textContent);
+    operand1 = operate(operand1, operand2, operator)
+    operand2 = null;
+  }
+}
+
 plus.addEventListener("click", () => {
-  operand = parseInt(displayScreen.textContent);
-  operator = "+";
+  checkChaining();
+  secondScreen.textContent = operand1;
+  operator = "+"
+  secondScreen.textContent = secondScreen.textContent + " " + operator;
   displayScreen.textContent = "";
 })
 
 minus.addEventListener("click", () => {
-  operand = parseInt(displayScreen.textContent);
+  checkChaining();
+  secondScreen.textContent = operand1;
   operator = "-";
+  secondScreen.textContent = secondScreen.textContent + " " + operator;
   displayScreen.textContent = "";
 })
 
 saltire.addEventListener("click", () => {
-  operand = parseInt(displayScreen.textContent);
+  checkChaining();
+  secondScreen.textContent = operand1;
   operator = "*";
+  secondScreen.textContent = secondScreen.textContent + " " + operator;
   displayScreen.textContent = "";
 })
 
 obelus.addEventListener("click", () => {
-  operand = parseInt(displayScreen.textContent);
+  checkChaining();
+  secondScreen.textContent = operand1;
   operator = "/";
+  secondScreen.textContent = secondScreen.textContent + " " + operator;
   displayScreen.textContent = "";
 })
 
 equals.addEventListener("click", () => {
-  operand1 = operand;
   operand2 = parseInt(displayScreen.textContent);
   displayScreen.textContent = "";
-  operate(operand1, operand2, operator)
+  secondScreen.textContent = operate(operand1, operand2, operator);
 })
 
 clear.addEventListener("click", () => {
-  displayScreen.textContent = ""
+  displayScreen.textContent = "";
+  secondScreen.textContent = "";
+  operand1 = null;
+  operand2 = null;
 })
 
 function add(operand1, operand2) {
@@ -128,20 +150,16 @@ function operate(operand1, operand2, operator) {
   switch (operator) {
     case "+":
       answer = add(operand1, operand2);
-      displayScreen.textContent = answer;
-    break;
+      return answer;
     case "-":
       answer = subtract(operand1, operand2);
-      displayScreen.textContent = answer;
-    break;
+      return answer;
     case "*":
       answer = multiply(operand1, operand2);
-      displayScreen.textContent = answer;
-    break;
+      return answer;
     case "/":
       answer = divide(operand1, operand2);
-      displayScreen.textContent = answer;
-    break;
+      return answer;
     default:
       console.log("Operation invalid\n");
     break;
