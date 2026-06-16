@@ -74,6 +74,8 @@ num9.addEventListener("click", () => {
 })
 
 function checkChaining() {
+  if(displayScreen.textContent == "")
+    return;
   if(operand1 == null && operand2 == null) {
     operand1 = parseInt(displayScreen.textContent);
   }
@@ -129,6 +131,8 @@ obelus.addEventListener("click", () => {
 })
 
 equals.addEventListener("click", () => {
+  if(displayScreen.textContent == "")
+    return;
   operand2 = parseInt(displayScreen.textContent);
   if(operand2 == 0 && operator == "/") {
     operand2 = null;
