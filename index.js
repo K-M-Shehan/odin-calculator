@@ -122,19 +122,19 @@ function operate(operand1, operand2, operator) {
   switch (operator) {
     case "+":
       answer = add(operand1, operand2);
-      console.log(answer);
+      displayScreen.textContent = answer;
     break;
     case "-":
       answer = subtract(operand1, operand2);
-      console.log(answer);
+      displayScreen.textContent = answer;
     break;
     case "*":
       answer = multiply(operand1, operand2);
-      console.log(answer);
+      displayScreen.textContent = answer;
     break;
     case "/":
       answer = divide(operand1, operand2);
-      console.log(answer);
+      displayScreen.textContent = answer;
     break;
     default:
       console.log("Operation invalid\n");
