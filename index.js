@@ -26,6 +26,7 @@ let operand;
 let operator;
 let operand1;
 let operand2;
+let decimalSwitch = 0;  // only once
 
 function incrementToDisplay(character) {
   let prev = displayScreen.textContent;
@@ -76,7 +77,10 @@ num9.addEventListener("click", () => {
 })
 
 decimalPoint.addEventListener("click", () => {
-  incrementToDisplay(".");
+  if(decimalSwitch == 0 && displayScreen.textContent != "") {
+    incrementToDisplay(".");
+    decimalSwitch = 1; // decimal point added
+  }
 })
 
 function checkChaining() {
@@ -98,6 +102,7 @@ plus.addEventListener("click", () => {
   operator = "+"
   secondScreen.textContent = secondScreen.textContent + " " + operator;
   displayScreen.textContent = "";
+  decimalSwitch = 0;
 })
 
 minus.addEventListener("click", () => {
@@ -106,6 +111,7 @@ minus.addEventListener("click", () => {
   operator = "-";
   secondScreen.textContent = secondScreen.textContent + " " + operator;
   displayScreen.textContent = "";
+  decimalSwitch = 0;
 })
 
 saltire.addEventListener("click", () => {
@@ -114,6 +120,7 @@ saltire.addEventListener("click", () => {
   operator = "*";
   secondScreen.textContent = secondScreen.textContent + " " + operator;
   displayScreen.textContent = "";
+  decimalSwitch = 0;
 })
 
 obelus.addEventListener("click", () => {
@@ -134,6 +141,7 @@ obelus.addEventListener("click", () => {
   operator = "/";
   secondScreen.textContent = secondScreen.textContent + " " + operator;
   displayScreen.textContent = "";
+  decimalSwitch = 0;
 })
 
 equals.addEventListener("click", () => {
@@ -149,6 +157,7 @@ equals.addEventListener("click", () => {
   secondScreen.textContent = operate(operand1, operand2, operator);
   operand1 = null;
   operand2 = null;
+  decimalSwitch = 0;
 })
 
 clear.addEventListener("click", () => {
@@ -156,6 +165,7 @@ clear.addEventListener("click", () => {
   secondScreen.textContent = "";
   operand1 = null;
   operand2 = null;
+  decimalSwitch = 0;
 })
 
 function add(operand1, operand2) {
