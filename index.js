@@ -20,6 +20,8 @@ const clear = document.querySelector("#clear");
 const displayScreen = document.querySelector("#display");
 const secondScreen = document.querySelector("#operation-display");
 
+const decimalPoint = document.querySelector("#dot");
+
 let operand;
 let operator;
 let operand1;
@@ -73,14 +75,18 @@ num9.addEventListener("click", () => {
   incrementToDisplay("9");
 })
 
+decimalPoint.addEventListener("click", () => {
+  incrementToDisplay(".");
+})
+
 function checkChaining() {
   if(displayScreen.textContent == "")
     return;
   if(operand1 == null && operand2 == null) {
-    operand1 = parseInt(displayScreen.textContent);
+    operand1 = parseFloat(displayScreen.textContent);
   }
   else if (operand1 != null && operand2 == null){
-    operand2 = parseInt(displayScreen.textContent);
+    operand2 = parseFloat(displayScreen.textContent);
     operand1 = operate(operand1, operand2, operator)
     operand2 = null;
   }
@@ -112,10 +118,10 @@ saltire.addEventListener("click", () => {
 
 obelus.addEventListener("click", () => {
   if(operand1 == null && operand2 == null) {
-    operand1 = parseInt(displayScreen.textContent);
+    operand1 = parseFloat(displayScreen.textContent);
   }
   else if (operand1 != null && operand2 == null){
-    operand2 = parseInt(displayScreen.textContent);
+    operand2 = parseFloat(displayScreen.textContent);
     if(operand2 == 0) {
       operand2 = null;
       secondScreen.textContent = "You have accidentally found the One Piece!";
@@ -133,7 +139,7 @@ obelus.addEventListener("click", () => {
 equals.addEventListener("click", () => {
   if(displayScreen.textContent == "")
     return;
-  operand2 = parseInt(displayScreen.textContent);
+  operand2 = parseFloat(displayScreen.textContent);
   if(operand2 == 0 && operator == "/") {
     operand2 = null;
     secondScreen.textContent = "You have accidentally found the One Piece!";
