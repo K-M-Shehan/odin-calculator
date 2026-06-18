@@ -1,7 +1,9 @@
 #display, #operation-display {
-  height: 2rem;
+  height: 4rem;
   border: 1px solid black;
   margin-bottom: 5px;
+  font-size: 2rem;
+  text-align: right;
 }
 
 #numbers {
@@ -38,4 +40,14 @@
   height: 25%;
   font-size: 2rem;
   margin-top: 1rem;
+}
+
+h1 {
+  text-align: center;
+  font-size: 4rem;
+}
+
+p {
+  text-align: center;
+  font-size: 2rem;
 }
