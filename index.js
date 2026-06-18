@@ -22,6 +22,8 @@ const secondScreen = document.querySelector("#operation-display");
 
 const decimalPoint = document.querySelector("#dot");
 
+const backSpace = document.querySelector("#backspc");
+
 let operand;
 let operator;
 let operand1;
@@ -81,6 +83,13 @@ decimalPoint.addEventListener("click", () => {
     incrementToDisplay(".");
     decimalSwitch = 1; // decimal point added
   }
+})
+
+backSpace.addEventListener("click", () => {
+  if(displayScreen.textContent.at(-1) == ".") {   // why can't js be normal for once and let me do it like this displayScreen.textContent[-1]
+    decimalSwitch = 0;    // this would reset the decimal switch if it was deleted
+  }
+  displayScreen.textContent = displayScreen.textContent.slice(0, -1); // removes just the last character in the string 
 })
 
 function checkChaining() {
