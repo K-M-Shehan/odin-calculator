@@ -24,7 +24,6 @@ const decimalPoint = document.querySelector("#dot");
 
 const backSpace = document.querySelector("#backspc");
 
-let operand;
 let operator;
 let operand1;
 let operand2;
@@ -36,6 +35,67 @@ function incrementToDisplay(character) {
 
   displayScreen.textContent = next;
 }
+
+// keyboard input
+document.addEventListener("keydown", (event) => {
+  switch (event.key) {
+    case "0":
+      incrementToDisplay("0");
+      break;
+    case "1":
+      incrementToDisplay("1");
+      break;
+    case "2":
+      incrementToDisplay("2");
+      break;
+    case "3":
+      incrementToDisplay("3");
+      break;
+    case "4":
+      incrementToDisplay("4");
+      break;
+    case "5":
+      incrementToDisplay("5");
+      break;
+    case "6":
+      incrementToDisplay("6");
+      break;
+    case "7":
+      incrementToDisplay("7");
+      break;
+    case "8":
+      incrementToDisplay("8");
+      break;
+    case "9":
+      incrementToDisplay("9");
+      break;
+    case "+":
+      plusF();
+      break;
+    case "-":
+      minusF();
+      break;
+    case "*":
+      mulF();
+      break;
+    case "/":
+      divF();
+      break;
+    case "Enter":
+    case "=":
+      evaluation();
+      break;
+    case "Escape":
+      clearing();
+      break;
+    case "Backspace":
+      backSpaceF();
+      break;
+    case ".":
+      decimalF();
+      break;
+  }
+});
 
 // event listeners
 num0.addEventListener("click", () => {
@@ -78,18 +138,26 @@ num9.addEventListener("click", () => {
   incrementToDisplay("9");
 })
 
-decimalPoint.addEventListener("click", () => {
-  if(decimalSwitch == 0 && displayScreen.textContent != "") {
+function decimalF(params) {
+   if(decimalSwitch == 0 && displayScreen.textContent != "") {
     incrementToDisplay(".");
     decimalSwitch = 1; // decimal point added
   }
+}
+
+decimalPoint.addEventListener("click", () => {
+  decimalF();
 })
 
-backSpace.addEventListener("click", () => {
+function backSpaceF() {
   if(displayScreen.textContent.at(-1) == ".") {   // why can't js be normal for once and let me do it like this displayScreen.textContent[-1]
     decimalSwitch = 0;    // this would reset the decimal switch if it was deleted
   }
   displayScreen.textContent = displayScreen.textContent.slice(0, -1); // removes just the last character in the string 
+}
+
+backSpace.addEventListener("click", () => {
+  backSpaceF();
 })
 
 function checkChaining() {
@@ -103,36 +171,46 @@ function checkChaining() {
     operand1 = operate(operand1, operand2, operator)
     operand2 = null;
   }
+  secondScreen.textContent = operand1;
 }
 
-plus.addEventListener("click", () => {
+function plusF() {
   checkChaining();
-  secondScreen.textContent = operand1;
   operator = "+"
   secondScreen.textContent = secondScreen.textContent + " " + operator;
   displayScreen.textContent = "";
   decimalSwitch = 0;
+}
+
+plus.addEventListener("click", () => {
+  plusF();
 })
 
-minus.addEventListener("click", () => {
+function minusF() {
   checkChaining();
-  secondScreen.textContent = operand1;
   operator = "-";
   secondScreen.textContent = secondScreen.textContent + " " + operator;
   displayScreen.textContent = "";
   decimalSwitch = 0;
+}
+
+minus.addEventListener("click", () => {
+  minusF();
 })
 
-saltire.addEventListener("click", () => {
+function mulF(params) {
   checkChaining();
-  secondScreen.textContent = operand1;
   operator = "*";
   secondScreen.textContent = secondScreen.textContent + " " + operator;
   displayScreen.textContent = "";
   decimalSwitch = 0;
+}
+
+saltire.addEventListener("click", () => {
+  mulF();
 })
 
-obelus.addEventListener("click", () => {
+function divF() {
   if(operand1 == null && operand2 == null) {
     operand1 = parseFloat(displayScreen.textContent);
   }
@@ -151,9 +229,13 @@ obelus.addEventListener("click", () => {
   secondScreen.textContent = secondScreen.textContent + " " + operator;
   displayScreen.textContent = "";
   decimalSwitch = 0;
+}
+
+obelus.addEventListener("click", () => {
+  divF();
 })
 
-equals.addEventListener("click", () => {
+function evaluation() {
   if(displayScreen.textContent == "")
     return;
   operand2 = parseFloat(displayScreen.textContent);
@@ -167,14 +249,22 @@ equals.addEventListener("click", () => {
   operand1 = null;
   operand2 = null;
   decimalSwitch = 0;
+}
+
+equals.addEventListener("click", () => {
+  evaluation();
 })
 
-clear.addEventListener("click", () => {
+function clearing() {
   displayScreen.textContent = "";
   secondScreen.textContent = "";
   operand1 = null;
   operand2 = null;
   decimalSwitch = 0;
+}
+
+clear.addEventListener("click", () => {
+  clearing();
 })
 
 function add(operand1, operand2) {
