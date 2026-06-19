@@ -25,8 +25,10 @@ const decimalPoint = document.querySelector("#dot");
 const backSpace = document.querySelector("#backspc");
 
 let operator;
+
 let operand1;
 let operand2;
+
 let decimalSwitch = 0;  // only once
 
 function incrementToDisplay(character) {
@@ -70,34 +72,34 @@ document.addEventListener("keydown", (event) => {
       incrementToDisplay("9");
       break;
     case "+":
-      plusF();
+      plusEvent();
       break;
     case "-":
-      minusF();
+      minusEvent();
       break;
     case "*":
-      mulF();
+      mulEvent();
       break;
     case "/":
-      divF();
+      divEvent();
       break;
     case "Enter":
     case "=":
       evaluation();
       break;
     case "Escape":
-      clearing();
+      clearingScreen();
       break;
     case "Backspace":
-      backSpaceF();
+      backSpaceEvent();
       break;
     case ".":
-      decimalF();
+      decimalEvent();
       break;
   }
 });
 
-// event listeners
+// button event listeners
 num0.addEventListener("click", () => {
   incrementToDisplay("0");
 })
@@ -138,29 +140,54 @@ num9.addEventListener("click", () => {
   incrementToDisplay("9");
 })
 
-function decimalF(params) {
+decimalPoint.addEventListener("click", () => {
+  decimalEvent();
+})
+
+backSpace.addEventListener("click", () => {
+  backSpaceEvent();
+})
+
+plus.addEventListener("click", () => {
+  plusEvent();
+})
+
+minus.addEventListener("click", () => {
+  minusEvent();
+})
+
+saltire.addEventListener("click", () => {
+  mulEvent();
+})
+
+obelus.addEventListener("click", () => {
+  divEvent();
+})
+
+equals.addEventListener("click", () => {
+  evaluation();
+})
+
+clear.addEventListener("click", () => {
+  clearingScreen();
+})
+
+// event logic
+function decimalEvent() {
    if(decimalSwitch == 0 && displayScreen.textContent != "") {
     incrementToDisplay(".");
     decimalSwitch = 1; // decimal point added
   }
 }
 
-decimalPoint.addEventListener("click", () => {
-  decimalF();
-})
-
-function backSpaceF() {
+function backSpaceEvent() {
   if(displayScreen.textContent.at(-1) == ".") {   // why can't js be normal for once and let me do it like this displayScreen.textContent[-1]
     decimalSwitch = 0;    // this would reset the decimal switch if it was deleted
   }
   displayScreen.textContent = displayScreen.textContent.slice(0, -1); // removes just the last character in the string 
 }
 
-backSpace.addEventListener("click", () => {
-  backSpaceF();
-})
-
-function checkChaining() {
+function checkChaining() {    // supporting function to event logic for operators
   if(displayScreen.textContent == "")
     return;
   if(operand1 == null && operand2 == null) {
@@ -174,49 +201,37 @@ function checkChaining() {
   secondScreen.textContent = operand1;
 }
 
-function plusF() {
+function evalToSecondDis() {    // supporting function to event logic for operators
+  secondScreen.textContent = secondScreen.textContent + " " + operator;
+  displayScreen.textContent = "";
+  decimalSwitch = 0;
+}
+
+function plusEvent() {
   checkChaining();
   operator = "+"
-  secondScreen.textContent = secondScreen.textContent + " " + operator;
-  displayScreen.textContent = "";
-  decimalSwitch = 0;
+  evalToSecondDis();
 }
 
-plus.addEventListener("click", () => {
-  plusF();
-})
-
-function minusF() {
+function minusEvent() {
   checkChaining();
   operator = "-";
-  secondScreen.textContent = secondScreen.textContent + " " + operator;
-  displayScreen.textContent = "";
-  decimalSwitch = 0;
+  evalToSecondDis();
 }
 
-minus.addEventListener("click", () => {
-  minusF();
-})
-
-function mulF(params) {
+function mulEvent() {
   checkChaining();
   operator = "*";
-  secondScreen.textContent = secondScreen.textContent + " " + operator;
-  displayScreen.textContent = "";
-  decimalSwitch = 0;
+  evalToSecondDis();
 }
 
-saltire.addEventListener("click", () => {
-  mulF();
-})
-
-function divF() {
+function divEvent() {
   if(operand1 == null && operand2 == null) {
     operand1 = parseFloat(displayScreen.textContent);
   }
   else if (operand1 != null && operand2 == null){
     operand2 = parseFloat(displayScreen.textContent);
-    if(operand2 == 0) {
+    if(operand2 == 0) {   // for the case when user divides by 0 during a chain
       operand2 = null;
       secondScreen.textContent = "You have accidentally found the One Piece!";
       return
@@ -226,20 +241,15 @@ function divF() {
   }
   secondScreen.textContent = operand1;
   operator = "/";
-  secondScreen.textContent = secondScreen.textContent + " " + operator;
-  displayScreen.textContent = "";
-  decimalSwitch = 0;
+  evalToSecondDis();
 }
 
-obelus.addEventListener("click", () => {
-  divF();
-})
-
+// final evaluation
 function evaluation() {
   if(displayScreen.textContent == "")
     return;
   operand2 = parseFloat(displayScreen.textContent);
-  if(operand2 == 0 && operator == "/") {
+  if(operand2 == 0 && operator == "/") {  // for when user divides by 0 but within the first pair
     operand2 = null;
     secondScreen.textContent = "You have accidentally found the One Piece!";
     return
@@ -251,11 +261,8 @@ function evaluation() {
   decimalSwitch = 0;
 }
 
-equals.addEventListener("click", () => {
-  evaluation();
-})
-
-function clearing() {
+// clears both displays and memory (clean slate)
+function clearingScreen() {
   displayScreen.textContent = "";
   secondScreen.textContent = "";
   operand1 = null;
@@ -263,10 +270,7 @@ function clearing() {
   decimalSwitch = 0;
 }
 
-clear.addEventListener("click", () => {
-  clearing();
-})
-
+// main logic
 function add(operand1, operand2) {
   return operand1 + operand2;
 }
